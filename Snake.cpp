@@ -1,10 +1,10 @@
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
-#include <winuser.h>
-#include <thread>
-#include "random.h"
-#include "gotoxy.h"
+#include <iostream> // cout - cin
+#include <conio.h> // getch()
+#include <windows.h> // Sleep()
+#include <thread> // class thread
+
+#include "random.h" //rendom()
+#include "gotoxy.h" // gotoxy()
 
 using namespace std;
 
