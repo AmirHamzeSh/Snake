@@ -1,10 +1,10 @@
-#include <iostream> // cout - cin
-#include <conio.h> // getch()
+#include <iostream>  // cout - cin
+#include <conio.h>   // getch()
 #include <windows.h> // Sleep()
-#include <thread> // class thread
+#include <thread>    // class thread
 
-#include "random.h" //rendom()
-#include "gotoxy.h" // gotoxy()
+#include "random.h"  //rendom()
+#include "gotoxy.h"  // gotoxy()
 
 using namespace std;
 
@@ -15,10 +15,12 @@ using namespace std;
 #define Esc_key 27
 
 int score = 0,
-        x = 10,
-        y = 11;
-char sg = 1, input = 0;
-char side ='\0';
+    x = 10,
+    y = 11;
+
+char sg = 1,
+    input = 0,
+    side ='\0';
 
 int randx = random(2, 77);
 int randy = random(1, 23);
@@ -28,12 +30,12 @@ void move_down();
 void move_right();
 void move_left();
 void intro();
-void myThreadFunc();
+void key_press();
 
 int main()
 {
     intro();
-    thread myThread(myThreadFunc);
+    thread myThread(key_press);
 
     while (true)
     {
@@ -56,7 +58,7 @@ int main()
                     move_left();
                 break;
             case 'E':
-                goto Esc_key_lable;
+                goto end;
                 break;
         }
         switch (side)
@@ -72,7 +74,7 @@ int main()
         }
     }
 
-    Esc_key_lable:
+    end:
     myThread.detach();
     system("cls");
     return 0;
@@ -145,7 +147,7 @@ void move_left()
     gotoxy(x, y);
     check_place();
 }
-void myThreadFunc()
+void key_press()
 {
     while (input = getch())
     {
