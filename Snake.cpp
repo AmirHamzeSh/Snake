@@ -73,6 +73,7 @@ int main()
     }
 
     Esc_key_lable:
+    myThread.detach();
     system("cls");
     return 0;
 }
