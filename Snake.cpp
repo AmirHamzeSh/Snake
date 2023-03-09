@@ -18,9 +18,8 @@ int score = 0,
     x = 10,
     y = 11;
 
-char sg = 1,
-    input = 0,
-    side ='\0';
+char face = 2,
+    input = 0;
 
 int randx = random(2, 77);
 int randy = random(1, 23);
@@ -39,42 +38,42 @@ int main()
 
     while (true)
     {
-        switch (side)
+        switch (input)
         {
-            case 'u': //up
+            case up_key:
                 if(y>1)
                     move_up();
                 break;
-            case 'd':
+            case down_key:
                 if(y<23)
                     move_down();
                 break;
-            case 'r':
+            case right_key:
                 if(x<77)
                     move_right();
                 break;
-            case 'l':
+            case left_key:
                 if(x>2)
                     move_left();
                 break;
-            case 'E':
-                goto end;
+            case Esc_key:
+                goto exit;
                 break;
         }
-        switch (side)
+        switch (input)
         {
-            case 'u':
-            case 'd':
+            case up_key:
+            case down_key:
                 Sleep(100);
                 break;
-            case 'l':
-            case 'r':
+            case left_key:
+            case right_key:
                 Sleep(50);
                 break;
         }
     }
 
-    end:
+    exit:
     myThread.detach();
     system("cls");
     return 0;
@@ -95,7 +94,7 @@ void intro()
     gotoxy(3, 25);  cout << "by:Amir Hamzeh";
     gotoxy(32, 25); cout << "use keys" <<'['<< (char) 24 <<','<<(char) 25 << ',' << (char) 26 << ',' << '<' <<']';
     gotoxy(65, 25); cout << "EXIT = [Esc]";
-    gotoxy(randx, randy);cout.put(sg);
+    gotoxy(randx, randy);cout.put(face);
     gotoxy(x, y); cout.put(26); gotoxy(x, y);
 
 }
@@ -108,7 +107,7 @@ void check_place()
         randx = random(2, 77);
         randy = random(1, 23);
 
-        gotoxy(randx, randy); cout.put(sg);
+        gotoxy(randx, randy); cout.put(face);
         gotoxy(x, y); cout.put(' ');
         x = 10;
         y = 11;
@@ -149,25 +148,5 @@ void move_left()
 }
 void key_press()
 {
-    while (input = getch())
-    {
-        switch (input)
-        {
-            case up_key:
-                side ='u';
-                break;
-            case down_key:
-                side ='d';;
-                break;
-            case right_key:
-                side ='r';
-                break;
-            case left_key:  
-                side ='l';
-                break;
-            case Esc_key:
-                side ='E';
-                break;
-        }
-    }
+    while (input = getch());
 }
