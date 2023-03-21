@@ -35,6 +35,7 @@ struct Wallborder{
 Snake snake;
 Food food;
 Wallborder wall;
+HANDLE col;
 
 void check_place();
 void move_up();
@@ -51,7 +52,6 @@ int main()
     {
         if(_kbhit())
             input = getch();
-
         switch (input)
         {
             case up_key:
@@ -87,8 +87,10 @@ int main()
 
     Sleep(500);
     gotoxy(35,12);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
     cout<<"you lose!";
     gotoxy(25,13);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cout<<"press Enter to Restart or Exit";
     if(getche() == 13)
         main();
@@ -109,20 +111,24 @@ void intro()
     food.y = random(wall.top, wall.buttom);
 
     system("cls");
-    system("title snake");
+    system("title Snake Game");
     system("mode con cols=80 lines=26");
     
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
     for (int i=0,j=25; i<26 && j>=0 ; i++,j--)
         {gotoxy(0, j);cout << "||";gotoxy(78, i);cout << "||";Sleep(10);}
 
     for (int i=2,j=77; i<78 && j>1 ;i++,j--)
         {gotoxy(i, 0);cout << "="; gotoxy(j, 24);cout << "=";Sleep(10);}
 
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
     gotoxy(2, 0);   cout << " score:" << score << "  ";
     gotoxy(3, 25);  cout << "Creator:Amir Hamzeh";
     gotoxy(32, 25); cout << "use keys" <<'['<< (char) 24 <<','<<(char) 25 << ',' << (char) 26 << ',' << '<' <<']';
     gotoxy(63, 25); cout << "EXIT = [Esc]";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
     gotoxy(food.x, food.y);cout.put(food.face);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
     gotoxy(snake.x, snake.y); cout.put(26); gotoxy(snake.x, snake.y);
 
 }
@@ -132,11 +138,12 @@ void check_place()
     {
         snake.lenTail++;
         score+=10;
-        gotoxy(2, 0); cout << ' ' << "score:" << score << ' ';
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+        gotoxy(2, 0);   cout << " score:" << score << ' ';
 
         food.x = random(wall.left, wall.right);
         food.y = random(wall.top, wall.buttom);
-
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
         gotoxy(food.x, food.y); cout.put(food.face);
         gotoxy(snake.x, snake.y);
     }
@@ -151,6 +158,7 @@ void check_place()
             snake.tail_XY[i][0] = snake.tail_XY[i-1][0];
             snake.tail_XY[i][1] = snake.tail_XY[i-1][1];
             gotoxy(snake.tail_XY[i][0],snake.tail_XY[i][1]);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
             cout.put('o');
         }
     }
