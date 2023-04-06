@@ -68,7 +68,7 @@ void WinCheck()
     if (snake.x == food.x && snake.y == food.y)
     {
         snake.lenTail++;
-        game.score += 20;
+        game.score = snake.lenTail * 20;
         consolecolor(color.cyanBright);
         gotoxy(2, 0);
         cout << " score:" << game.score << ' ';

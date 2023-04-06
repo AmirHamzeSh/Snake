@@ -50,7 +50,7 @@ public:
     int x = 10;
     int y = 11;
     char Head = 26;
-    int tail_XY[100][100];
+    int tail_XY[2080][2080];
     int lenTail = 0;
 
     void start()
