@@ -1,8 +1,3 @@
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
-#include <stdlib.h>
-#include <time.h>
 #include "Resource.h"
 
 using namespace std;
@@ -10,9 +5,9 @@ Snake snake;
 Food food;
 Game game;
 
-void WinCheck();
-bool loseCheck();
-void lose();
+void CheckWin();
+bool losed();
+void loseMessage();
 
 int main()
 {
@@ -22,8 +17,7 @@ int main()
 
     while (true)
     {
-        if (_kbhit())
-            game.inputKey = getch();
+        game.getKey();
 
         switch (game.inputKey)
         {
@@ -55,15 +49,15 @@ int main()
             game.inputKey = getch();
             break;
         }
-        WinCheck();
-        if (loseCheck())
+        CheckWin();
+        if (losed())
             break;
     }
-    lose();
+    loseMessage();
     return 0;
 }
 
-void WinCheck()
+void CheckWin()
 {
     if (snake.x == food.x && snake.y == food.y)
     {
@@ -76,7 +70,7 @@ void WinCheck()
     }
 }
 
-bool loseCheck()
+bool losed()
 {
     if (snake.x > wall.right || snake.x < wall.left || snake.y < wall.top || snake.y > wall.buttom)
         return true;
@@ -102,7 +96,7 @@ void gameReset()
     snake.Head = 26;
 }
 
-void lose()
+void loseMessage()
 {
     Sleep(500);
     gotoxy(35, 12);

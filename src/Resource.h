@@ -1,3 +1,8 @@
+#include <iostream>
+#include <conio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <windows.h>
 using namespace std;
 
 int random(int x, int y)
@@ -5,6 +10,7 @@ int random(int x, int y)
     srand(time(0));
     return rand() % (y - x + 1) + x;
 }
+
 void gotoxy(int x, int y)
 {
     COORD coord;
@@ -12,6 +18,7 @@ void gotoxy(int x, int y)
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
+
 struct consoleColors
 {
     const int
@@ -30,8 +37,8 @@ struct consoleColors
         pink = 13,
         yellow = 14,
         whiteBright = 15;
-};
-consoleColors color;
+};consoleColors color;
+
 void consolecolor(int color)
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -101,6 +108,7 @@ public:
         cout.put(Head);
         gotoxy(x, y);
     }
+
     void updateTail()
     {
         if (lenTail > 0)
@@ -128,8 +136,8 @@ public:
         buttom = 23,
         left = 2,
         right = 77;
-};
-Wallborder wall;
+};Wallborder wall;
+
 class Food
 {
 public:
@@ -150,6 +158,7 @@ class Game
 public:
     int score = 0,
         inputKey = 0,
+        inputKeyPerv = 0,
         prevKey = 0;
     void reset()
     {
@@ -159,7 +168,7 @@ public:
     void startGame()
     {
         system("cls");
-        system("title Snake Game");
+        SetConsoleTitleW(L"Snake Game");
         system("mode con cols=80 lines=26");
 
         consolecolor(color.YellowDark);
@@ -189,6 +198,11 @@ public:
         cout << "use keys" << '[' << (char)24 << ',' << (char)25 << ',' << (char)26 << ',' << '<' << ']';
         gotoxy(63, 25);
         cout << "EXIT = [Esc]";
+    }
+    void getKey()
+    {
+        if (_kbhit())
+            inputKey = getch();
     }
     ~Game()
     {
